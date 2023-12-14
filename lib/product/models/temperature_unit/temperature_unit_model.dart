@@ -1,5 +1,6 @@
 class TemperatureUnitModel {
   final String? unit;
-  final bool? isSelected;
+  bool? isSelected;
+
   TemperatureUnitModel({this.unit, this.isSelected});
 }

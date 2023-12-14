@@ -1,15 +1,10 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:provider/provider.dart';
 import 'package:weather_app/core/extension/num/num_extension.dart';
 import 'package:weather_app/core/extension/widget/widget_extension.dart';
 import 'package:weather_app/feature/settings/view_model/settings_view_model.dart';
-import 'package:weather_app/product/constant/app_color.dart';
 import 'package:weather_app/product/constant/app_padding.dart';
-import 'package:weather_app/product/constant/app_radius.dart';
-import 'package:weather_app/product/constant/app_size.dart';
 import 'package:weather_app/product/constant/app_text_style.dart';
 import 'package:weather_app/product/widgets/app_bar/custom_app_bar.dart';
 import 'package:weather_app/product/widgets/button/custom_button.dart';
@@ -72,7 +67,7 @@ class _SettingsViewState extends State<SettingsView> {
           ),
           AppPadding.verticalPadding.height,
           CustomButton(
-            onTap: () => context.router.pop(),
+            onTap: () {},
             title: 'Save',
           )
         ],

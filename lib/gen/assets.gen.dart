@@ -9,8 +9,42 @@
 
 import 'package:flutter/widgets.dart';
 
+class $AssetsLottieGen {
+  const $AssetsLottieGen();
+
+  /// File path: assets/lottie/cloudy_lottie.json
+  String get cloudyLottie => 'assets/lottie/cloudy_lottie.json';
+
+  /// File path: assets/lottie/open_air_lottie.json
+  String get openAirLottie => 'assets/lottie/open_air_lottie.json';
+
+  /// File path: assets/lottie/rainy_lottie.json
+  String get rainyLottie => 'assets/lottie/rainy_lottie.json';
+
+  /// File path: assets/lottie/snowy_lottie.json
+  String get snowyLottie => 'assets/lottie/snowy_lottie.json';
+
+  /// File path: assets/lottie/splash_lottie.json
+  String get splashLottie => 'assets/lottie/splash_lottie.json';
+
+  /// File path: assets/lottie/windy_lottie.json
+  String get windyLottie => 'assets/lottie/windy_lottie.json';
+
+  /// List of all assets
+  List<String> get values => [
+        cloudyLottie,
+        openAirLottie,
+        rainyLottie,
+        snowyLottie,
+        splashLottie,
+        windyLottie
+      ];
+}
+
 class Assets {
   Assets._();
+
+  static const $AssetsLottieGen lottie = $AssetsLottieGen();
 }
 
 class AssetGenImage {

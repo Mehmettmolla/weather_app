@@ -17,7 +17,7 @@ class CustomTemperatureUnitCard extends StatelessWidget {
       onTap: onTap,
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 300),
-        width: AppSize.screenWidth(context) * 0.35,
+        width: AppSize.screenWidth(context) * 0.43,
         padding: const EdgeInsets.all(AppPadding.defualtPadding),
         decoration: BoxDecoration(
           borderRadius: AppRadius.radius12,

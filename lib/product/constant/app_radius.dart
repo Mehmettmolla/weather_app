@@ -9,4 +9,9 @@ class AppRadius {
     bottomLeft: Radius.circular(20),
     bottomRight: Radius.circular(20),
   );
+
+  static BorderRadius leftRadius20 = const BorderRadius.only(
+    topLeft: Radius.circular(20),
+    bottomLeft: Radius.circular(20),
+  );
 }

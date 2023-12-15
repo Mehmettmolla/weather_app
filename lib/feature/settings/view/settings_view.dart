@@ -40,7 +40,10 @@ class _SettingsViewState extends State<SettingsView> {
               alignment: WrapAlignment.center,
               children: 
                   settingsProvider.temperatureUnitList.map((e) => CustomTemperatureUnitCard(
-                    onTap: () => settingsProvider.changeTemperatureUnit(e),
+                    onTap: () {
+                      settingsProvider.changeTemperatureUnit(e);
+                      settingsProvider.saveTemperatureUnit(e);
+                    },
                     isSelected: e.isSelected,
                     title: e.unit,
                   )).toList(),

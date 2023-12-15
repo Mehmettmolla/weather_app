@@ -6,8 +6,9 @@ import 'package:weather_app/product/router/app_router.gr.dart';
 
 @RoutePage()
 class BaseScaffoldView extends StatefulWidget {
-  const BaseScaffoldView({super.key});
-
+  const BaseScaffoldView({super.key, this.lat, this.lon});
+  final double? lat;
+  final double? lon;
   @override
   State<BaseScaffoldView> createState() => _BaseScaffoldViewState();
 }
@@ -18,7 +19,10 @@ class _BaseScaffoldViewState extends State<BaseScaffoldView> {
     return AutoTabsRouter.tabBar(
       physics: const NeverScrollableScrollPhysics(),
       animatePageTransition: false,
-      routes: const [HomeRoute(), SettingsRoute()],
+      routes:  [HomeRoute(
+          lat: widget.lat,
+          long: widget.lon,
+      ), const SettingsRoute()],
       builder: (context, child, tabController) {
         return Scaffold(
           resizeToAvoidBottomInset: true,

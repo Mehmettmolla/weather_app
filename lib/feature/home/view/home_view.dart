@@ -1,38 +1,61 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+import 'package:provider/provider.dart';
 import 'package:weather_app/core/extension/num/num_extension.dart';
 import 'package:weather_app/core/extension/widget/widget_extension.dart';
+import 'package:weather_app/core/service/local/local_service.dart';
+import 'package:weather_app/feature/home/view_model/home_view_model.dart';
+import 'package:weather_app/feature/settings/view_model/settings_view_model.dart';
 import 'package:weather_app/gen/assets.gen.dart';
 import 'package:weather_app/product/constant/app_color.dart';
 import 'package:weather_app/product/constant/app_padding.dart';
 import 'package:weather_app/product/constant/app_radius.dart';
 import 'package:weather_app/product/constant/app_size.dart';
 import 'package:weather_app/product/constant/app_text_style.dart';
+import 'package:weather_app/product/enum/weather_condition/weather_condition.dart';
+import 'package:weather_app/product/utility/app_utility.dart';
 import 'package:weather_app/product/widgets/app_bar/custom_app_bar.dart';
 import 'package:weather_app/product/widgets/card/custom_daily_weather_card.dart';
 import 'package:weather_app/product/widgets/card/custom_hourly_weather_card.dart';
 
 @RoutePage()
 class HomeView extends StatefulWidget {
-  const HomeView({super.key});
-
+  const HomeView({super.key, this.lat, this.long});
+  final double? lat;
+  final double? long;
   @override
   State<HomeView> createState() => _HomeViewState();
 }
 
 class _HomeViewState extends State<HomeView> {
   @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      context.read<HomeViewModel>().getWeather(widget.lat, widget.long);
+      context.read<HomeViewModel>().getPlaceMarkFromCoordinates(
+        widget.lat, widget.long!
+      );
+    });
+
+  }
+  @override
   Widget build(BuildContext context) {
+    final homeProvider = context.watch<HomeViewModel>();
+    final settingsProvider = context.watch<SettingsViewModel>();
     return Scaffold(
-      appBar: const CustomAppBar(
-        title: 'İstanbul',
+      appBar:  CustomAppBar(
+        title: homeProvider.location,
       ),
-      body: Column(
+      body: 
+      homeProvider.weatherModel == null || homeProvider.location == null ?
+      const Center(child: CircularProgressIndicator(),) :
+      Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            height: AppSize.screenHeight(context) * 0.3,
+            height: AppSize.screenHeight(context) * 0.23,
             width: AppSize.screenWidth(context),
             padding: const EdgeInsets.symmetric(
               horizontal: AppPadding.horizontalPadding
@@ -50,12 +73,15 @@ class _HomeViewState extends State<HomeView> {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text("18 C", style: AppTextStyle.whiteSemibold44,),
-                        Text("Snowing", style: AppTextStyle.whiteSemibold32,),
+                        Text(formatTemperature(homeProvider.weatherModel!.current!.temperature_2m!, settingsProvider.temp!).toString(), style: AppTextStyle.whiteSemibold44,),
+                        AppPadding.betweenPadding.height,
+                        Text(WeatherConditionExtension.fromCode(homeProvider.weatherModel!.current!.weatherCode!).toString(), style: AppTextStyle.whiteSemibold32,),
                       ],
                     ),
                     const Spacer(),
-                    Lottie.asset(Assets.lottie.snowyLottie, height: AppSize.screenHeight(context) * 0.2,),
+                    Lottie.asset( 
+                      WeatherConditionExtension.fromCode(homeProvider.weatherModel!.current!.weatherCode!).lottieAsset,
+                      height: AppSize.screenHeight(context) * 0.2,),
                   ],
                 ),
               ],
@@ -77,16 +103,18 @@ class _HomeViewState extends State<HomeView> {
                     width: AppSize.screenWidth(context),
                     child: ListView.builder(
                       shrinkWrap: true,
-                      itemCount: 5,
+                      itemCount: homeProvider.weatherModel!.daily!.time?.length,
                       padding: const EdgeInsets.symmetric(
                         horizontal: AppPadding.horizontalPadding
                       ),
                       scrollDirection: Axis.horizontal,
                       itemBuilder: (context, index) {
+                        final time = homeProvider.weatherModel!.daily!.time![index];
+                        final weatherCode = homeProvider.weatherModel!.daily!.weatherCode![index];
                         return CustomDailyWeatherCard(
-                          day: "Today",
-                          lottieAsset: Assets.lottie.snowyLottie,
-                          weatherStatus: "Snowing",
+                          day: time,
+                          lottieAsset: WeatherConditionExtension.fromCode(weatherCode!).lottieAsset,
+                          weatherStatus: WeatherConditionExtension.fromCode(weatherCode),
                         );
                       },
                     ),
@@ -113,13 +141,16 @@ class _HomeViewState extends State<HomeView> {
                     ),
                     child: ListView.builder(
                       shrinkWrap: true,
-                      itemCount: 5,
+                      itemCount: homeProvider.weatherModel!.hourly!.time?.length,
                       scrollDirection: Axis.horizontal,
                       itemBuilder: (context, index) {
+                          final time = homeProvider.weatherModel!.hourly!.time![index];
+                          final weatherCode = homeProvider.weatherModel!.hourly!.weatherCode![index];
+                          final weatherDegree = homeProvider.weatherModel!.hourly!.temperature_2m![index];
                         return CustomHourlyWeatherCard(
-                          hour: "12:00",
-                          lottieAsset: Assets.lottie.snowyLottie,
-                          weatherDegree: "18 C",
+                          hour: time,
+                          lottieAsset: WeatherConditionExtension.fromCode(weatherCode!).lottieAsset,
+                          weatherDegree: weatherDegree,
                         );
                       },
                     ),
@@ -137,4 +168,6 @@ class _HomeViewState extends State<HomeView> {
       ),
     );
   }
+
+
 }

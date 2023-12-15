@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:weather_app/core/extension/widget/widget_extension.dart';
-import 'package:weather_app/gen/assets.gen.dart';
 import 'package:weather_app/product/constant/app_padding.dart';
 import 'package:weather_app/product/constant/app_radius.dart';
 import 'package:weather_app/product/constant/app_text_style.dart';
+import 'package:weather_app/product/utility/app_utility.dart';
 
 class CustomDailyWeatherCard extends StatelessWidget {
   const CustomDailyWeatherCard({super.key, this.day, this.lottieAsset, this.weatherStatus});
@@ -32,7 +32,7 @@ class CustomDailyWeatherCard extends StatelessWidget {
       ),
       child: Column(
         children: [
-          Text(day!, style: AppTextStyle.greySemibold16,),
+          Text(getDayString(day!), style: AppTextStyle.greySemibold16,),
           Lottie.asset(lottieAsset!, height: 70,),
           const Spacer(),
           Text(weatherStatus!, style: AppTextStyle.blackSemibold16,),
@@ -43,4 +43,6 @@ class CustomDailyWeatherCard extends StatelessWidget {
       AppPadding.betweenPadding, 
     );
   }
+
+
 }

@@ -1,16 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:weather_app/core/service/local/local_service.dart';
 import 'package:weather_app/product/models/temperature_unit/temperature_unit_model.dart';
 
-class SettingsViewModel extends ChangeNotifier {
-
+class SettingsViewModel with ChangeNotifier {
   List<TemperatureUnitModel> temperatureUnitList = [
     TemperatureUnitModel(
       unit: 'Celsius',
-      isSelected: true,
+      isSelected: LocalService.getTemp() == null
+          ? true
+          : LocalService.getTemp() == "true"
+              ? false
+              : true,
     ),
     TemperatureUnitModel(
       unit: 'Fahrenheit',
-      isSelected: false,
+      isSelected: LocalService.getTemp() == null
+          ? false
+          : LocalService.getTemp() == "true"
+              ? true
+              : false,
     ),
   ];
 
@@ -22,6 +30,19 @@ class SettingsViewModel extends ChangeNotifier {
         element.isSelected = false;
       }
     }
+    notifyListeners();
+  }
+
+  bool? temp = LocalService.getTemp() == null
+      ? false
+      : LocalService.getTemp() == "true"
+          ? true
+          : false;
+
+  Future saveTemperatureUnit(TemperatureUnitModel selectedUnit) async {
+    await LocalService.setTemp(
+    selectedUnit.unit == 'Celsius' ? "false" : "true");
+    temp = selectedUnit.unit == 'Celsius' ? false : true;
     notifyListeners();
   }
 }

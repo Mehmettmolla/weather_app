@@ -13,13 +13,15 @@ typedef FromJson<T> = T Function(Map<String, dynamic> json);
 class ApiService extends BaseService {
   
   Future<dynamic> getRequest({
-    required String endPoint,
+    String? endPoint,
     FromJson? fromJson,
+    String? url,
   }) async {
     return await request(
       endPoint: endPoint,
       type: RequestType.GET,
       fromJson: fromJson,
+      url: url,
     );
   }
 
@@ -39,6 +41,7 @@ class ApiService extends BaseService {
   @override
   Future<dynamic> request({
     final String? endPoint,
+    final String? url,
     final RequestType? type,
     dynamic data,
     FromJson? fromJson,
@@ -48,7 +51,8 @@ class ApiService extends BaseService {
       switch (type!) {
         case RequestType.GET:
           response = await NetworkManager.instance.dio
-              .get("${AppConstant.baseUrl}$endPoint");
+              .get(
+                url ?? "${AppConstant.baseUrl}$endPoint");
           break;
         case RequestType.POST:
           response = await NetworkManager.instance.dio

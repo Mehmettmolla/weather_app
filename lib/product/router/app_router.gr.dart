@@ -53,7 +53,7 @@ abstract class $AppRouter extends _i5.RootStackRouter {
         child: _i4.BaseScaffoldView(
           key: args.key,
           lat: args.lat,
-          lon: args.lon,
+          long: args.long,
         ),
       );
     },
@@ -137,14 +137,14 @@ class BaseScaffoldRoute extends _i5.PageRouteInfo<BaseScaffoldRouteArgs> {
   BaseScaffoldRoute({
     _i6.Key? key,
     double? lat,
-    double? lon,
+    double? long,
     List<_i5.PageRouteInfo>? children,
   }) : super(
           BaseScaffoldRoute.name,
           args: BaseScaffoldRouteArgs(
             key: key,
             lat: lat,
-            lon: lon,
+            long: long,
           ),
           initialChildren: children,
         );
@@ -159,17 +159,17 @@ class BaseScaffoldRouteArgs {
   const BaseScaffoldRouteArgs({
     this.key,
     this.lat,
-    this.lon,
+    this.long,
   });
 
   final _i6.Key? key;
 
   final double? lat;
 
-  final double? lon;
+  final double? long;
 
   @override
   String toString() {
-    return 'BaseScaffoldRouteArgs{key: $key, lat: $lat, lon: $lon}';
+    return 'BaseScaffoldRouteArgs{key: $key, lat: $lat, long: $long}';
   }
 }

@@ -1,4 +1,3 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:weather_app/core/extension/widget/widget_extension.dart';
 import 'package:weather_app/product/constant/app_color.dart';

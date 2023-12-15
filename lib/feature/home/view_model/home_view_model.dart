@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:weather_app/core/service/api/api_service.dart';
 import 'package:weather_app/product/models/weather/weather_model.dart';
 
@@ -29,7 +28,7 @@ class HomeViewModel with ChangeNotifier {
 
       if (placemarks.isNotEmpty) {
         Placemark place = placemarks.first;
-        location = "${place.locality}";
+        location = "${place.administrativeArea}";
         notifyListeners();
       }
     } catch (e) {

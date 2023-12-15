@@ -7,7 +7,8 @@ import 'package:weather_app/product/constant/app_size.dart';
 import 'package:weather_app/product/constant/app_text_style.dart';
 
 class CustomTemperatureUnitCard extends StatelessWidget {
-  const CustomTemperatureUnitCard({super.key, this.title, this.isSelected, this.onTap});
+  const CustomTemperatureUnitCard(
+      {super.key, this.title, this.isSelected, this.onTap});
   final String? title;
   final bool? isSelected;
   final VoidCallback? onTap;
@@ -22,7 +23,8 @@ class CustomTemperatureUnitCard extends StatelessWidget {
         decoration: BoxDecoration(
           borderRadius: AppRadius.radius12,
           border: Border.all(
-              color: isSelected == false ? AppColor.black : AppColor.primaryBlue,
+              color:
+                  isSelected == false ? AppColor.black : AppColor.primaryBlue,
               width: isSelected == false ? 1 : 2),
         ),
         child: Center(

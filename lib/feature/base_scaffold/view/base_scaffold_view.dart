@@ -6,9 +6,9 @@ import 'package:weather_app/product/router/app_router.gr.dart';
 
 @RoutePage()
 class BaseScaffoldView extends StatefulWidget {
-  const BaseScaffoldView({super.key, this.lat, this.lon});
+  const BaseScaffoldView({super.key, this.lat, this.long});
   final double? lat;
-  final double? lon;
+  final double? long;
   @override
   State<BaseScaffoldView> createState() => _BaseScaffoldViewState();
 }
@@ -21,7 +21,7 @@ class _BaseScaffoldViewState extends State<BaseScaffoldView> {
       animatePageTransition: false,
       routes:  [HomeRoute(
           lat: widget.lat,
-          long: widget.lon,
+          long: widget.long,
       ), const SettingsRoute()],
       builder: (context, child, tabController) {
         return Scaffold(

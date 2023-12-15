@@ -38,7 +38,6 @@ class CustomDailyWeatherCard extends StatelessWidget {
           Text(weatherStatus!, style: AppTextStyle.blackSemibold16,),
         ],
       ),
-
     ).paddingAll(
       AppPadding.betweenPadding, 
     );

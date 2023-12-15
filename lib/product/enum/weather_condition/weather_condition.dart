@@ -1,4 +1,4 @@
-import 'package:weather_app/gen/assets.gen.dart';
+import 'package:weather_app/product/gen/assets.gen.dart';
 
 enum WeatherCondition {
   Clear,

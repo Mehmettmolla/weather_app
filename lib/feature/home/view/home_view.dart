@@ -16,6 +16,7 @@ import 'package:weather_app/product/utility/app_utility.dart';
 import 'package:weather_app/product/widgets/app_bar/custom_app_bar.dart';
 import 'package:weather_app/product/widgets/card/custom_daily_weather_card.dart';
 import 'package:weather_app/product/widgets/card/custom_hourly_weather_card.dart';
+import 'package:weather_app/product/widgets/indicator/custom_circle_progress_indicator.dart';
 
 @RoutePage()
 class HomeView extends StatefulWidget {
@@ -45,9 +46,7 @@ class _HomeViewState extends State<HomeView> {
     return Scaffold(
       appBar: _appBar(settingsProvider, homeProvider),
       body: homeProvider.weatherModel == null || homeProvider.location == null
-          ? const Center(
-              child: CircularProgressIndicator(),
-            )
+          ? const CustomCircleProgressIndicator()
           : Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [

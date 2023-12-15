@@ -10,6 +10,7 @@ import 'package:weather_app/product/constant/app_text_style.dart';
 import 'package:weather_app/product/widgets/app_bar/custom_app_bar.dart';
 import 'package:weather_app/product/widgets/card/custom_temperature_unit_card.dart';
 import 'package:weather_app/product/widgets/dropdown/custom_dropdown_button.dart';
+import 'package:weather_app/product/widgets/indicator/custom_circle_progress_indicator.dart';
 
 @RoutePage()
 class SettingsView extends StatefulWidget {
@@ -35,9 +36,7 @@ class _SettingsViewState extends State<SettingsView> {
     return Scaffold(
         appBar: _appBar(),
         body: settingsProvider.provinceModel == null
-            ? const Center(
-                child: CircularProgressIndicator(),
-              )
+            ? const CustomCircleProgressIndicator()
             : _body(settingsProvider, homeProvider).paddingSymetric(
                 horizontal: AppPadding.horizontalPadding,
               ));
